@@ -15,13 +15,13 @@ const schema = a
         isDone: a.boolean(), // ✅ Added "isDone" field as a boolean
       })
       .authorization((allow) => [allow.publicApiKey()]),
-
+    EMRAuthType: a.enum(["CLIENT_SECRET", "OAUTH2"]),
     // ✅ New EMR Interoperability Models
     EMR: a
       .model({
         emrId: a.id().required(),
         name: a.string().required(),
-        authType: a.enum(["CLIENT_SECRET", "OAUTH2"]),
+        authType: a.ref("EMRAuthType").required(),
         baseEndpoint: a.string().required(),
         requiresCustomerSpecificEndpoint: a.boolean().required(),
         customers: a.hasMany("EMRCustomer", "emrId"), // ✅ Added hasMany relationship

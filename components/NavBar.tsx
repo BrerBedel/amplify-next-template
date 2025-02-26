@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { ChevronDown, ChevronRight } from "lucide-react"; // ✅ Install Lucide for icons: npm install lucide-react
 
 const Navbar = () => {
   const { user, signOut } = useAuthenticator();
+
+  // ✅ State for toggling menus
+  const [emrOpen, setEmrOpen] = useState(false);
+  const [customerOpen, setCustomerOpen] = useState(false);
 
   return (
     <nav className="navbar">
@@ -14,19 +20,35 @@ const Navbar = () => {
           <li>
             <Link href="/">🏠 Home</Link>
           </li>
-          <li>
-            <Link href="/emr/create">📊 New EMR</Link>
+
+          {/* EMRs Section */}
+          <li className="nav-item">
+            <button className="nav-button" onClick={() => setEmrOpen(!emrOpen)}>
+              📁 EMRs {emrOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            </button>
+            {emrOpen && (
+              <ul className="nested-menu">
+                <li><Link href="/emr/create">➕ New EMR</Link></li>
+                <li><Link href="/emr/list">📋 View EMRs</Link></li>
+              </ul>
+            )}
           </li>
-          <li>
-            <Link href="/emr/list">📊 View EMRs</Link>
-          </li>
-          <li>
-            <Link href="/emrcustomercreate">📊 New Customer</Link>
-          </li>
-          <li>
-            <Link href="/settings">⚙️ Settings</Link>
+
+          {/* Customers Section */}
+          <li className="nav-item">
+            <button className="nav-button" onClick={() => setCustomerOpen(!customerOpen)}>
+              📁 Customers {customerOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+            </button>
+            {customerOpen && (
+              <ul className="nested-menu">
+                <li><Link href="/emrcustomer/create">➕ New Customer</Link></li>
+                <li><Link href="/emrcustomer/list">📋 View Customers</Link></li>
+              </ul>
+            )}
           </li>
         </ul>
+
+        {/* Sign Out Button */}
         <button className="signout-button" onClick={signOut}>
           🚪 Sign Out
         </button>
