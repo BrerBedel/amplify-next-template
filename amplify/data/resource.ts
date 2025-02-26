@@ -15,7 +15,7 @@ const schema = a
         isDone: a.boolean(), // ✅ Added "isDone" field as a boolean
       })
       .authorization((allow) => [allow.publicApiKey()]),
-    EMRAuthType: a.enum(["CLIENT_SECRET", "OAUTH2"]),
+    EMRAuthType: a.enum(["CLIENTSECRET", "OAUTH2"]),
     // ✅ New EMR Interoperability Models
     EMR: a
       .model({
