@@ -8,23 +8,23 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/dashboard">Dashboard</Link>
-        </li>
-        {user ? (
+      <div className="nav-content">
+        <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>⚡ My App</h2>
+        <ul className="nav-links">
           <li>
-            <button onClick={signOut}>Logout</button>
+            <Link href="/">🏠 Home</Link>
           </li>
-        ) : (
           <li>
-            <Link href="/login">Login</Link>
+            <Link href="/dashboard">📊 Dashboard</Link>
           </li>
-        )}
-      </ul>
+          <li>
+            <Link href="/settings">⚙️ Settings</Link>
+          </li>
+        </ul>
+        <button className="signout-button" onClick={signOut}>
+          🚪 Sign Out
+        </button>
+      </div>
     </nav>
   );
 };

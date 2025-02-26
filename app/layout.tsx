@@ -7,12 +7,11 @@ import "./app.css";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import outputs from "@/amplify_outputs.json";
-import NavBar from "@/components/NavBar"
+import Navbar from "@/components/NavBar";
 
 Amplify.configure(outputs);
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 export default function RootLayout({
   children,
@@ -21,10 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>      
+      <body>
         <Authenticator>
-          <NavBar />
-          {children}
+          <Navbar />
+          <div className="main-content">{children}</div>
         </Authenticator>
       </body>
     </html>

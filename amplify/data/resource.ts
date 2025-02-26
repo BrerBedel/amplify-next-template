@@ -6,13 +6,57 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
-const schema = a.schema({
-  Todo: a
+const schema = a
+  .schema({
+    // ✅ Existing To-Do App Model
+    Todo: a
+      .model({
+        content: a.string(),
+        isDone: a.boolean(), // ✅ Added "isDone" field as a boolean
+      })
+      .authorization((allow) => [allow.publicApiKey()]),
+
+    // ✅ New EMR Interoperability Models
+    EMR: a
+      .model({
+        emrId: a.id().required(),
+        name: a.string().required(),
+        authType: a.enum(["CLIENT_SECRET", "OAUTH2"]),
+        baseEndpoint: a.string().required(),
+        requiresCustomerSpecificEndpoint: a.boolean().required(),
+        customers: a.hasMany("EMRCustomer", "emrId"), // ✅ Added hasMany relationship
+      })
+      .authorization((allow) => [allow.publicApiKey()])
+      .identifier(["emrId"]),
+
+    EMRCustomer: a
     .model({
-      content: a.string(),
+      customerId: a.id().required(),
+      name: a.string().required(),
+      emrId: a.id().required(),
+      endpoint: a.string(),
+      credentials: a.customType({
+        clientId: a.string(),
+        clientSecret: a.string(),
+        jwtToken: a.string(),
+      }),
+      emr: a.belongsTo("EMR", "emrId"), // ✅ Correct belongsTo relationship with EMR
+      triggers: a.hasMany("Trigger", "customerId"), // ✅ Added hasMany relationship to Trigger
     })
-    .authorization((allow) => [allow.publicApiKey()]),
-});
+      .authorization((allow) => [allow.publicApiKey()])
+      .identifier(["customerId"]),
+
+    Trigger: a
+    .model({
+      triggerId: a.id().required(),
+      customerId: a.id().required(),
+      status: a.enum(["PENDING", "SUCCESS", "FAILED"]),
+      timestamp: a.datetime().required(),
+      customer: a.belongsTo("EMRCustomer", "customerId"), // ✅ Now correctly linked back to EMR_Customer
+    })
+      .authorization((allow) => [allow.publicApiKey()])
+      .identifier(["triggerId"]),
+  });
 
 export type Schema = ClientSchema<typeof schema>;
 

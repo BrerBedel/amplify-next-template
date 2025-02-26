@@ -1,104 +1,154 @@
-body {
-    margin: 0;
-    background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
-    display: flex;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    height: 100vh;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    color: white;
-  }
-  button:hover {
-    border-color: #646cff;
-  }
-  button:focus,
-  button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
-  
-  ul {
-    padding-inline-start: 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    margin: 8px 0;
-    border: 1px solid black;
-    gap: 1px;
-    background-color: black;
-    border-radius: 8px;
-    overflow: auto;
-  }
-  
-  li {
-    background-color: white;
-    padding: 8px;
-  }
-  
-  li:hover {
-    background: #dadbf9;
-  }
-  
-  a {
-    font-weight: 800;
-    text-decoration: none;
+/* Style for full-height left-side navigation bar */
+.navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px; /* Slightly wider for better spacing */
+  height: 100vh; /* Full height */
+  background: linear-gradient(180deg, #7753c8, #5739a7); /* Purple Gradient */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+/* Container inside the navbar */
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Navigation Links */
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Pushes the signout button to the bottom */
+}
+
+.nav-links li {
+  margin: 15px 0;
+}
+
+.nav-links a {
+  background: transparent;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* Style for icons next to links */
+.nav-links a::before {
+  content: "▶"; /* Default indicator */
+  font-size: 14px;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::before {
+  transform: translateX(5px);
+}
+
+/* Style the Sign Out Button */
+.signout-button {
+  background: #c42c2c;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: auto; /* Pushes it to the bottom */
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.signout-button:hover {
+  background: #a12121;
+  transform: scale(1.05);
+}
+
+/* Restrict styles to only affect the main content area */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255)) !important;
+  width: 100%;
   }
 
-  .navbar {
-    background: #1a1a1a;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .navbar ul {
-    display: flex;
-    list-style-type: none;
-    gap: 20px;
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .navbar button {
-    background: red;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  .navbar button:hover {
-    background: darkred;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+.main-content body {
+  margin: 0;
+  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
+  display: flex;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
 
-  
+.main-content button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: white;
+}
+
+.main-content button:hover {
+  border-color: #646cff;
+}
+
+.main-content button:focus,
+.main-content button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.main-content ul {
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+  border: 1px solid black;
+  gap: 1px;
+  background-color: black;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.main-content li {
+  background-color: white;
+  padding: 8px;
+}
+
+.main-content li:hover {
+  background: #dadbf9;
+}
+
+.main-content a {
+  font-weight: 800;
+  text-decoration: none;
+}
