@@ -26,11 +26,11 @@ export default function EMRListPage() {
         // ✅ Force TypeScript to recognize this as a query response
         const response = (await client.graphql({
           query: listEMRS,
-        })) as GraphQLResult<{ listEMRs: { items: EMR[] } }>;
+        })) as GraphQLResult<{ listEMRS: { items: EMR[] } }>;
 
         // ✅ Ensure data exists before updating state
-        if (response.data?.listEMRs?.items) {
-          setEMRs(response.data.listEMRs.items);
+        if (response.data?.listEMRS?.items) {
+          setEMRs(response.data.listEMRS.items);
         } else {
           console.error("No EMRs found.");
         }
