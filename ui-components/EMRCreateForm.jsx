@@ -201,7 +201,7 @@ export default function EMRCreateForm(props) {
       >
         <option
           children="Client secret"
-          value="CLIENT_SECRET"
+          value="CLIENTSECRET"
           {...getOverrideProps(overrides, "authTypeoption0")}
         ></option>
         <option
