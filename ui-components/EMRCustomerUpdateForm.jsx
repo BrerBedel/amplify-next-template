@@ -9,7 +9,7 @@ import { updateEMRCustomer } from "./graphql/mutations";
 const client = generateClient();
 export default function EMRCustomerUpdateForm(props) {
   const {
-    customerId: customerIdProp,
+    rcopiaId: rcopiaIdProp,
     eMRCustomer: eMRCustomerModelProp,
     onSuccess,
     onError,
@@ -22,11 +22,21 @@ export default function EMRCustomerUpdateForm(props) {
   const initialValues = {
     customerId: "",
     name: "",
-    endpoint: "",
+    rcopiaId: "",
+    clientId: "",
+    baseUrl: "",
+    authSlug: "",
+    fhirSlug: "",
+    practiceId: "",
   };
   const [customerId, setCustomerId] = React.useState(initialValues.customerId);
   const [name, setName] = React.useState(initialValues.name);
-  const [endpoint, setEndpoint] = React.useState(initialValues.endpoint);
+  const [rcopiaId, setRcopiaId] = React.useState(initialValues.rcopiaId);
+  const [clientId, setClientId] = React.useState(initialValues.clientId);
+  const [baseUrl, setBaseUrl] = React.useState(initialValues.baseUrl);
+  const [authSlug, setAuthSlug] = React.useState(initialValues.authSlug);
+  const [fhirSlug, setFhirSlug] = React.useState(initialValues.fhirSlug);
+  const [practiceId, setPracticeId] = React.useState(initialValues.practiceId);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = eMRCustomerRecord
@@ -34,30 +44,40 @@ export default function EMRCustomerUpdateForm(props) {
       : initialValues;
     setCustomerId(cleanValues.customerId);
     setName(cleanValues.name);
-    setEndpoint(cleanValues.endpoint);
+    setRcopiaId(cleanValues.rcopiaId);
+    setClientId(cleanValues.clientId);
+    setBaseUrl(cleanValues.baseUrl);
+    setAuthSlug(cleanValues.authSlug);
+    setFhirSlug(cleanValues.fhirSlug);
+    setPracticeId(cleanValues.practiceId);
     setErrors({});
   };
   const [eMRCustomerRecord, setEMRCustomerRecord] =
     React.useState(eMRCustomerModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = customerIdProp
+      const record = rcopiaIdProp
         ? (
             await client.graphql({
               query: getEMRCustomer.replaceAll("__typename", ""),
-              variables: { customerId: customerIdProp },
+              variables: { rcopiaId: rcopiaIdProp },
             })
           )?.data?.getEMRCustomer
         : eMRCustomerModelProp;
       setEMRCustomerRecord(record);
     };
     queryData();
-  }, [customerIdProp, eMRCustomerModelProp]);
+  }, [rcopiaIdProp, eMRCustomerModelProp]);
   React.useEffect(resetStateValues, [eMRCustomerRecord]);
   const validations = {
-    customerId: [{ type: "Required" }],
+    customerId: [],
     name: [{ type: "Required" }],
-    endpoint: [],
+    rcopiaId: [{ type: "Required" }],
+    clientId: [{ type: "Required" }],
+    baseUrl: [{ type: "Required" }],
+    authSlug: [{ type: "Required" }],
+    fhirSlug: [{ type: "Required" }],
+    practiceId: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,9 +105,14 @@ export default function EMRCustomerUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          customerId,
+          customerId: customerId ?? null,
           name,
-          endpoint: endpoint ?? null,
+          rcopiaId,
+          clientId,
+          baseUrl,
+          authSlug,
+          fhirSlug,
+          practiceId: practiceId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -121,7 +146,7 @@ export default function EMRCustomerUpdateForm(props) {
             query: updateEMRCustomer.replaceAll("__typename", ""),
             variables: {
               input: {
-                customerId: eMRCustomerRecord.customerId,
+                rcopiaId: eMRCustomerRecord.rcopiaId,
                 ...modelFields,
               },
             },
@@ -141,8 +166,8 @@ export default function EMRCustomerUpdateForm(props) {
     >
       <TextField
         label="Customer id"
-        isRequired={true}
-        isReadOnly={true}
+        isRequired={false}
+        isReadOnly={false}
         value={customerId}
         onChange={(e) => {
           let { value } = e.target;
@@ -150,7 +175,12 @@ export default function EMRCustomerUpdateForm(props) {
             const modelFields = {
               customerId: value,
               name,
-              endpoint,
+              rcopiaId,
+              clientId,
+              baseUrl,
+              authSlug,
+              fhirSlug,
+              practiceId,
             };
             const result = onChange(modelFields);
             value = result?.customerId ?? value;
@@ -176,7 +206,12 @@ export default function EMRCustomerUpdateForm(props) {
             const modelFields = {
               customerId,
               name: value,
-              endpoint,
+              rcopiaId,
+              clientId,
+              baseUrl,
+              authSlug,
+              fhirSlug,
+              practiceId,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -192,30 +227,190 @@ export default function EMRCustomerUpdateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Endpoint"
-        isRequired={false}
-        isReadOnly={false}
-        value={endpoint}
+        label="Rcopia id"
+        isRequired={true}
+        isReadOnly={true}
+        value={rcopiaId}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               customerId,
               name,
-              endpoint: value,
+              rcopiaId: value,
+              clientId,
+              baseUrl,
+              authSlug,
+              fhirSlug,
+              practiceId,
             };
             const result = onChange(modelFields);
-            value = result?.endpoint ?? value;
+            value = result?.rcopiaId ?? value;
           }
-          if (errors.endpoint?.hasError) {
-            runValidationTasks("endpoint", value);
+          if (errors.rcopiaId?.hasError) {
+            runValidationTasks("rcopiaId", value);
           }
-          setEndpoint(value);
+          setRcopiaId(value);
         }}
-        onBlur={() => runValidationTasks("endpoint", endpoint)}
-        errorMessage={errors.endpoint?.errorMessage}
-        hasError={errors.endpoint?.hasError}
-        {...getOverrideProps(overrides, "endpoint")}
+        onBlur={() => runValidationTasks("rcopiaId", rcopiaId)}
+        errorMessage={errors.rcopiaId?.errorMessage}
+        hasError={errors.rcopiaId?.hasError}
+        {...getOverrideProps(overrides, "rcopiaId")}
+      ></TextField>
+      <TextField
+        label="Client id"
+        isRequired={true}
+        isReadOnly={false}
+        value={clientId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              customerId,
+              name,
+              rcopiaId,
+              clientId: value,
+              baseUrl,
+              authSlug,
+              fhirSlug,
+              practiceId,
+            };
+            const result = onChange(modelFields);
+            value = result?.clientId ?? value;
+          }
+          if (errors.clientId?.hasError) {
+            runValidationTasks("clientId", value);
+          }
+          setClientId(value);
+        }}
+        onBlur={() => runValidationTasks("clientId", clientId)}
+        errorMessage={errors.clientId?.errorMessage}
+        hasError={errors.clientId?.hasError}
+        {...getOverrideProps(overrides, "clientId")}
+      ></TextField>
+      <TextField
+        label="Base url"
+        isRequired={true}
+        isReadOnly={false}
+        value={baseUrl}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              customerId,
+              name,
+              rcopiaId,
+              clientId,
+              baseUrl: value,
+              authSlug,
+              fhirSlug,
+              practiceId,
+            };
+            const result = onChange(modelFields);
+            value = result?.baseUrl ?? value;
+          }
+          if (errors.baseUrl?.hasError) {
+            runValidationTasks("baseUrl", value);
+          }
+          setBaseUrl(value);
+        }}
+        onBlur={() => runValidationTasks("baseUrl", baseUrl)}
+        errorMessage={errors.baseUrl?.errorMessage}
+        hasError={errors.baseUrl?.hasError}
+        {...getOverrideProps(overrides, "baseUrl")}
+      ></TextField>
+      <TextField
+        label="Auth slug"
+        isRequired={true}
+        isReadOnly={false}
+        value={authSlug}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              customerId,
+              name,
+              rcopiaId,
+              clientId,
+              baseUrl,
+              authSlug: value,
+              fhirSlug,
+              practiceId,
+            };
+            const result = onChange(modelFields);
+            value = result?.authSlug ?? value;
+          }
+          if (errors.authSlug?.hasError) {
+            runValidationTasks("authSlug", value);
+          }
+          setAuthSlug(value);
+        }}
+        onBlur={() => runValidationTasks("authSlug", authSlug)}
+        errorMessage={errors.authSlug?.errorMessage}
+        hasError={errors.authSlug?.hasError}
+        {...getOverrideProps(overrides, "authSlug")}
+      ></TextField>
+      <TextField
+        label="Fhir slug"
+        isRequired={true}
+        isReadOnly={false}
+        value={fhirSlug}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              customerId,
+              name,
+              rcopiaId,
+              clientId,
+              baseUrl,
+              authSlug,
+              fhirSlug: value,
+              practiceId,
+            };
+            const result = onChange(modelFields);
+            value = result?.fhirSlug ?? value;
+          }
+          if (errors.fhirSlug?.hasError) {
+            runValidationTasks("fhirSlug", value);
+          }
+          setFhirSlug(value);
+        }}
+        onBlur={() => runValidationTasks("fhirSlug", fhirSlug)}
+        errorMessage={errors.fhirSlug?.errorMessage}
+        hasError={errors.fhirSlug?.hasError}
+        {...getOverrideProps(overrides, "fhirSlug")}
+      ></TextField>
+      <TextField
+        label="Practice id"
+        isRequired={false}
+        isReadOnly={false}
+        value={practiceId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              customerId,
+              name,
+              rcopiaId,
+              clientId,
+              baseUrl,
+              authSlug,
+              fhirSlug,
+              practiceId: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.practiceId ?? value;
+          }
+          if (errors.practiceId?.hasError) {
+            runValidationTasks("practiceId", value);
+          }
+          setPracticeId(value);
+        }}
+        onBlur={() => runValidationTasks("practiceId", practiceId)}
+        errorMessage={errors.practiceId?.errorMessage}
+        hasError={errors.practiceId?.hasError}
+        {...getOverrideProps(overrides, "practiceId")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -228,7 +423,7 @@ export default function EMRCustomerUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(customerIdProp || eMRCustomerModelProp)}
+          isDisabled={!(rcopiaIdProp || eMRCustomerModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -240,7 +435,7 @@ export default function EMRCustomerUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(customerIdProp || eMRCustomerModelProp) ||
+              !(rcopiaIdProp || eMRCustomerModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

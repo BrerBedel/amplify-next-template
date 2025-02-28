@@ -2,54 +2,20 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateEMR = /* GraphQL */ `
-  subscription OnCreateEMR($filter: ModelSubscriptionEMRFilterInput) {
-    onCreateEMR(filter: $filter) {
-      authType
-      baseEndpoint
-      createdAt
-      customers {
-        nextToken
-        __typename
-      }
-      emrId
-      name
-      requiresCustomerSpecificEndpoint
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onCreateEMRCustomer = /* GraphQL */ `
   subscription OnCreateEMRCustomer(
     $filter: ModelSubscriptionEMRCustomerFilterInput
   ) {
     onCreateEMRCustomer(filter: $filter) {
+      authSlug
+      baseUrl
+      clientId
       createdAt
-      credentials {
-        clientId
-        clientSecret
-        jwtToken
-        __typename
-      }
       customerId
-      emr {
-        authType
-        baseEndpoint
-        createdAt
-        emrId
-        name
-        requiresCustomerSpecificEndpoint
-        updatedAt
-        __typename
-      }
-      emrId
-      endpoint
+      fhirSlug
       name
-      triggers {
-        nextToken
-        __typename
-      }
+      practiceId
+      rcopiaId
       updatedAt
       __typename
     }
@@ -67,76 +33,20 @@ export const onCreateTodo = /* GraphQL */ `
     }
   }
 `;
-export const onCreateTrigger = /* GraphQL */ `
-  subscription OnCreateTrigger($filter: ModelSubscriptionTriggerFilterInput) {
-    onCreateTrigger(filter: $filter) {
-      createdAt
-      customer {
-        createdAt
-        customerId
-        emrId
-        endpoint
-        name
-        updatedAt
-        __typename
-      }
-      customerId
-      status
-      timestamp
-      triggerId
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteEMR = /* GraphQL */ `
-  subscription OnDeleteEMR($filter: ModelSubscriptionEMRFilterInput) {
-    onDeleteEMR(filter: $filter) {
-      authType
-      baseEndpoint
-      createdAt
-      customers {
-        nextToken
-        __typename
-      }
-      emrId
-      name
-      requiresCustomerSpecificEndpoint
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onDeleteEMRCustomer = /* GraphQL */ `
   subscription OnDeleteEMRCustomer(
     $filter: ModelSubscriptionEMRCustomerFilterInput
   ) {
     onDeleteEMRCustomer(filter: $filter) {
+      authSlug
+      baseUrl
+      clientId
       createdAt
-      credentials {
-        clientId
-        clientSecret
-        jwtToken
-        __typename
-      }
       customerId
-      emr {
-        authType
-        baseEndpoint
-        createdAt
-        emrId
-        name
-        requiresCustomerSpecificEndpoint
-        updatedAt
-        __typename
-      }
-      emrId
-      endpoint
+      fhirSlug
       name
-      triggers {
-        nextToken
-        __typename
-      }
+      practiceId
+      rcopiaId
       updatedAt
       __typename
     }
@@ -154,76 +64,20 @@ export const onDeleteTodo = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteTrigger = /* GraphQL */ `
-  subscription OnDeleteTrigger($filter: ModelSubscriptionTriggerFilterInput) {
-    onDeleteTrigger(filter: $filter) {
-      createdAt
-      customer {
-        createdAt
-        customerId
-        emrId
-        endpoint
-        name
-        updatedAt
-        __typename
-      }
-      customerId
-      status
-      timestamp
-      triggerId
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateEMR = /* GraphQL */ `
-  subscription OnUpdateEMR($filter: ModelSubscriptionEMRFilterInput) {
-    onUpdateEMR(filter: $filter) {
-      authType
-      baseEndpoint
-      createdAt
-      customers {
-        nextToken
-        __typename
-      }
-      emrId
-      name
-      requiresCustomerSpecificEndpoint
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onUpdateEMRCustomer = /* GraphQL */ `
   subscription OnUpdateEMRCustomer(
     $filter: ModelSubscriptionEMRCustomerFilterInput
   ) {
     onUpdateEMRCustomer(filter: $filter) {
+      authSlug
+      baseUrl
+      clientId
       createdAt
-      credentials {
-        clientId
-        clientSecret
-        jwtToken
-        __typename
-      }
       customerId
-      emr {
-        authType
-        baseEndpoint
-        createdAt
-        emrId
-        name
-        requiresCustomerSpecificEndpoint
-        updatedAt
-        __typename
-      }
-      emrId
-      endpoint
+      fhirSlug
       name
-      triggers {
-        nextToken
-        __typename
-      }
+      practiceId
+      rcopiaId
       updatedAt
       __typename
     }
@@ -236,28 +90,6 @@ export const onUpdateTodo = /* GraphQL */ `
       createdAt
       id
       isDone
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateTrigger = /* GraphQL */ `
-  subscription OnUpdateTrigger($filter: ModelSubscriptionTriggerFilterInput) {
-    onUpdateTrigger(filter: $filter) {
-      createdAt
-      customer {
-        createdAt
-        customerId
-        emrId
-        endpoint
-        name
-        updatedAt
-        __typename
-      }
-      customerId
-      status
-      timestamp
-      triggerId
       updatedAt
       __typename
     }

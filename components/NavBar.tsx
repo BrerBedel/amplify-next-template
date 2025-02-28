@@ -9,7 +9,6 @@ const Navbar = () => {
   const { user, signOut } = useAuthenticator();
 
   // ✅ State for toggling menus
-  const [emrOpen, setEmrOpen] = useState(false);
   const [customerOpen, setCustomerOpen] = useState(false);
 
   return (
@@ -19,19 +18,6 @@ const Navbar = () => {
         <ul className="nav-links">
           <li>
             <Link href="/">🏠 Home</Link>
-          </li>
-
-          {/* EMRs Section */}
-          <li className="nav-item">
-            <button className="nav-button" onClick={() => setEmrOpen(!emrOpen)}>
-              📁 EMRs {emrOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-            </button>
-            {emrOpen && (
-              <ul className="nested-menu">
-                <li><Link href="/emr/create">➕ New EMR</Link></li>
-                <li><Link href="/emr/list">📋 View EMRs</Link></li>
-              </ul>
-            )}
           </li>
 
           {/* Customers Section */}

@@ -18,34 +18,19 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type EMRCustomerCreateFormInputValues = {
     customerId?: string;
     name?: string;
-    rcopiaId?: string;
-    clientId?: string;
-    baseUrl?: string;
-    authSlug?: string;
-    fhirSlug?: string;
-    practiceId?: string;
+    endpoint?: string;
 };
 export declare type EMRCustomerCreateFormValidationValues = {
     customerId?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
-    rcopiaId?: ValidationFunction<string>;
-    clientId?: ValidationFunction<string>;
-    baseUrl?: ValidationFunction<string>;
-    authSlug?: ValidationFunction<string>;
-    fhirSlug?: ValidationFunction<string>;
-    practiceId?: ValidationFunction<string>;
+    endpoint?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type EMRCustomerCreateFormOverridesProps = {
     EMRCustomerCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     customerId?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
-    rcopiaId?: PrimitiveOverrideProps<TextFieldProps>;
-    clientId?: PrimitiveOverrideProps<TextFieldProps>;
-    baseUrl?: PrimitiveOverrideProps<TextFieldProps>;
-    authSlug?: PrimitiveOverrideProps<TextFieldProps>;
-    fhirSlug?: PrimitiveOverrideProps<TextFieldProps>;
-    practiceId?: PrimitiveOverrideProps<TextFieldProps>;
+    endpoint?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type EMRCustomerCreateFormProps = React.PropsWithChildren<{
     overrides?: EMRCustomerCreateFormOverridesProps | undefined | null;

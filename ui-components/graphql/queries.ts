@@ -2,52 +2,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getEMR = /* GraphQL */ `
-  query GetEMR($emrId: ID!) {
-    getEMR(emrId: $emrId) {
-      authType
-      baseEndpoint
-      createdAt
-      customers {
-        nextToken
-        __typename
-      }
-      emrId
-      name
-      requiresCustomerSpecificEndpoint
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const getEMRCustomer = /* GraphQL */ `
-  query GetEMRCustomer($customerId: ID!) {
-    getEMRCustomer(customerId: $customerId) {
+  query GetEMRCustomer($rcopiaId: String!) {
+    getEMRCustomer(rcopiaId: $rcopiaId) {
+      authSlug
+      baseUrl
+      clientId
       createdAt
-      credentials {
-        clientId
-        clientSecret
-        jwtToken
-        __typename
-      }
       customerId
-      emr {
-        authType
-        baseEndpoint
-        createdAt
-        emrId
-        name
-        requiresCustomerSpecificEndpoint
-        updatedAt
-        __typename
-      }
-      emrId
-      endpoint
+      fhirSlug
       name
-      triggers {
-        nextToken
-        __typename
-      }
+      practiceId
+      rcopiaId
       updatedAt
       __typename
     }
@@ -65,79 +31,31 @@ export const getTodo = /* GraphQL */ `
     }
   }
 `;
-export const getTrigger = /* GraphQL */ `
-  query GetTrigger($triggerId: ID!) {
-    getTrigger(triggerId: $triggerId) {
-      createdAt
-      customer {
-        createdAt
-        customerId
-        emrId
-        endpoint
-        name
-        updatedAt
-        __typename
-      }
-      customerId
-      status
-      timestamp
-      triggerId
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const listEMRCustomers = /* GraphQL */ `
   query ListEMRCustomers(
-    $customerId: ID
     $filter: ModelEMRCustomerFilterInput
     $limit: Int
     $nextToken: String
+    $rcopiaId: String
     $sortDirection: ModelSortDirection
   ) {
     listEMRCustomers(
-      customerId: $customerId
       filter: $filter
       limit: $limit
       nextToken: $nextToken
+      rcopiaId: $rcopiaId
       sortDirection: $sortDirection
     ) {
       items {
+        authSlug
+        baseUrl
+        clientId
         createdAt
         customerId
-        emrId
-        endpoint
+        fhirSlug
         name
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const listEMRS = /* GraphQL */ `
-  query ListEMRS(
-    $emrId: ID
-    $filter: ModelEMRFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-  ) {
-    listEMRS(
-      emrId: $emrId
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
-      items {
-        authType
-        baseEndpoint
-        createdAt
-        emrId
-        name
-        requiresCustomerSpecificEndpoint
+        practiceId
+        rcopiaId
         updatedAt
         __typename
       }
@@ -158,35 +76,6 @@ export const listTodos = /* GraphQL */ `
         createdAt
         id
         isDone
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const listTriggers = /* GraphQL */ `
-  query ListTriggers(
-    $filter: ModelTriggerFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-    $triggerId: ID
-  ) {
-    listTriggers(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-      triggerId: $triggerId
-    ) {
-      items {
-        createdAt
-        customerId
-        status
-        timestamp
-        triggerId
         updatedAt
         __typename
       }
